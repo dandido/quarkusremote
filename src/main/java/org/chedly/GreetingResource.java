@@ -8,11 +8,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 
 @Path("/hello")
 public class GreetingResource {
+
+    @ConfigProperty(name ="greetings" , defaultValue = "chedly")
+    String greetMe;
 
     @Inject
     // le meme nom que le fichier
@@ -24,7 +29,7 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "Hello from remote Boom";
+        return "Hello from remote Boom : " +greetMe;
     }
 
     @GET
